@@ -19,7 +19,6 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "(*)Bölüm boş geçilemez.")
     @NotBlank(message = "(*)Bölüm boş geçilemez.")
     private String name;
 
