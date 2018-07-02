@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Department implements Serializable {
     private int id;
 
     @NotNull(message = "(*)Bölüm boş geçilemez.")
+    @NotBlank(message = "(*)Bölüm boş geçilemez.")
     private String name;
 
 
@@ -35,6 +37,7 @@ public class Department implements Serializable {
     )
 
     @Valid
+    @NotNull(message = "(*)Fakülte boş geçilemez.")
     private Faculty faculty;
 
     public Department() { }

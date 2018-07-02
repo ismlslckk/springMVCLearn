@@ -1,6 +1,8 @@
 package com.ismlslck.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Faculty implements Serializable {
 
 
     @NotNull(message = "(*) Fakülte ismi boş geçilemez.")
+    @NotBlank(message = "(*) Fakülte ismi boş geçilemez.")
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY,targetEntity = Department.class,mappedBy = "faculty")

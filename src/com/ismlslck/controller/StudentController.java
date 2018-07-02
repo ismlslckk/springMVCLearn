@@ -83,7 +83,7 @@ public class StudentController {
     public String saveStudent(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult, Model model) {
         //bindingResult.getFieldErrors().add(new FieldError("student","department.faculty","ger"));
         if(student.getDepartment().getFaculty()==null){
-            bindingResult.rejectValue("department.faculty.name","department.faculty.name","wefewfewfw");
+            bindingResult.rejectValue("department.faculty.name","department.faculty.name","(*)Fakülte ismi boş geçilemez.");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("student", student);

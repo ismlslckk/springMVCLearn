@@ -21,14 +21,17 @@
             <div class="form-group">
                 <label>Bölüm Adı</label>
                 <form:input type="text" class="form-control" path="name"/>
+                <form:errors path="name" cssClass="error"/>
             </div>
             <div class="form-group">
                 <label>Fakülte</label>
                 <form:select class="form-control" path="faculty">
+                    <option>Seçiniz...</option>
                     <c:forEach  var="item" items="${faculties}">
                         <option value="${item.id}">${item.name}</option>
                     </c:forEach>
                 </form:select>
+                <form:errors path="faculty" cssClass="error"/>
             </div>
             <button type="submit" class="btn btn-primary">Kaydet</button>
         </form:form>

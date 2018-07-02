@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,10 +33,13 @@ public class DeparmentController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveDepartment(@ModelAttribute("deparment") Department department, Model model, BindingResult bindingResult) {
+    public String saveDepartment(@ModelAttribute("deparment") @Valid Department department, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("error", "Bir sorun oluştu,daha sonra tekrar deneyiniz.");
-            return "redirect:/department/list";
+            model.addAttribute("deparment", department);
+            model.addAttribute("deparments", departmentService.getAllDepartment());
+            model.addAttribute("faculties", facultyService.getAllFaculty());
+            //model.addAttribute("error", "Bir sorun oluştu,daha sonra tekrar deneyiniz.");
+            return "list-department";
         } else {
             if (departmentService.saveDepartment(department)) {
                 return "redirect:/department/list";

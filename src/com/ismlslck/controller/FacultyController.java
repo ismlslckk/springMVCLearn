@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping(value = "/faculty")
@@ -30,10 +32,17 @@ public class FacultyController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveFaculty(@ModelAttribute("faculty") Faculty faculty, Model model) {
-        facultyService.saveFaculty(faculty);
-        model.addAttribute("faculty",new Faculty());
-        return "redirect:/faculty/list";
+    public String saveFaculty(@ModelAttribute("faculty") @Valid Faculty faculty, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("faculty", faculty);
+            model.addAttribute("faculties", facultyService.getAllFaculty());
+            return "list-faculty";
+        } else {
+            facultyService.saveFaculty(faculty);
+            model.addAttribute("faculty", new Faculty());
+            return "redirect:/faculty/list";
+        }
+
 
     }
 
@@ -63,14 +72,13 @@ public class FacultyController {
         }
     }
 
-    @RequestMapping(value = "/delete/{facultyId}",method = RequestMethod.GET)
-    public String deleteStudent(@PathVariable int facultyId,RedirectAttributes redirectAttributes){
-        if(facultyService.deleteFaculty(facultyId)){
-            redirectAttributes.addFlashAttribute("message","Fakülte başarıyla silindi");
+    @RequestMapping(value = "/delete/{facultyId}", method = RequestMethod.GET)
+    public String deleteStudent(@PathVariable int facultyId, RedirectAttributes redirectAttributes) {
+        if (facultyService.deleteFaculty(facultyId)) {
+            redirectAttributes.addFlashAttribute("message", "Fakülte başarıyla silindi");
             return "redirect:/faculty/list";
-        }
-        else {
-            redirectAttributes.addFlashAttribute("message","Bir sorun oluştu,fakülte silinemedi!");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Bir sorun oluştu,fakülte silinemedi!");
             return "redirect:/faculty/list";
         }
     }

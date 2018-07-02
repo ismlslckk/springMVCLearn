@@ -12,7 +12,7 @@
 <head>
     <title>Title</title>
 </head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<jsp:include page="include/css.jsp" />
 <body>
 <div class="container">
     <jsp:include page="include/menu.jsp" />
@@ -21,6 +21,7 @@
             <div class="form-group">
                 <label>Fakülte Adı</label>
                 <form:input type="text" class="form-control" path="name"/>
+                <form:errors path="name" cssClass="error"/>
             </div>
             <button type="submit" class="btn btn-primary">Kaydet</button>
         </form:form>
