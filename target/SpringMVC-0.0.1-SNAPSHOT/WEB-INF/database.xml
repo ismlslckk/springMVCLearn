@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Add support for component scanning -->
+    <context:component-scan base-package="com.ismlslck"/>
+
+
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/view/assets/" />
+
+    <!-- convert işlemleri için service -->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.ismlslck.controller.StudentController.DepartmentConverter"/>
+                <bean class="com.ismlslck.controller.StudentController.FacultyConverter"/>
+            </list>
+        </property>
+    </bean>
+    <!-- Define Spring MVC view resolver -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!-- Step 1: Define Database DataSource / connection pool -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/university?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+    </bean>
+
+    <!-- Step 2: Setup Hibernate session factory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.ismlslck.entity"/>
+        <property name="hibernateProperties">
+
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.spatial.dialect.mysql.MySQL5SpatialDialect</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">create-drop</prop>&lt;!&ndash; her server çalıştıgında otomatik tabloları yeniden oluşturur. &ndash;&gt;-->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="format_sql">true</prop>
+                <prop key="useUnicode">true</prop>
+                <prop key="characterEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Step 3: Setup Hibernate transaction manager -->
+    <bean id="myTransactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Step 4: Enable configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="myTransactionManager"/>
+
+</beans>
+
+
+
+
+
