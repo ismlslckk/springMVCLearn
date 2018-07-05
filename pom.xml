@@ -213,11 +213,41 @@
       <artifactId>hibernate-validator</artifactId>
       <version>6.0.10.Final</version>
     </dependency>
-      <!-- <dependency>
-         <groupId>javax.xml.bind</groupId>
-         <artifactId>jaxb-api</artifactId>
-         <version>2.3.0</version>
-       </dependency>-->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
 
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>4.2.3.RELEASE</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/fast-md5/fast-md5 -->
+    <dependency>
+      <groupId>fast-md5</groupId>
+      <artifactId>fast-md5</artifactId>
+      <version>2.5</version>
+    </dependency>
   </dependencies>
 </project>
