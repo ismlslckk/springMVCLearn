@@ -54,6 +54,11 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.0.2.RELEASE" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.10.Final" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.0.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.0.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.0.6.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-crypto:4.2.3.RELEASE" />
+          <element id="library" level="project" name="Maven: fast-md5:fast-md5:2.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">
