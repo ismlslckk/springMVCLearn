@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 
-    <form:form action="/j_spring_security_check" method="post" modelAttribute="user" class="form-signin col-md-4 col-md-offset-4">
+    <form:form action="/login" method="post" modelAttribute="user" class="form-signin col-md-4 col-md-offset-4">
         <h2 class="form-signin-heading">Lütfen giriş yapın</h2>
         <label for="inputEmail" class="sr-only">Kullanıcı Adı</label>
         <form:input type="text" id="inputEmail" class="form-control" path="username"/><br>

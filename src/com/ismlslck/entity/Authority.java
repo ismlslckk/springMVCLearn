@@ -3,14 +3,16 @@ package com.ismlslck.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "authority")
+@Table(name = "authorities")
 public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String username;
+
+    private String authority;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, targetEntity = User.class)
     @JoinTable(
@@ -19,6 +21,22 @@ public class Authority {
             inverseJoinColumns = @JoinColumn(name = "userId")
     )
     private User user;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
 
     public User getUser() {
         return user;
@@ -36,13 +54,7 @@ public class Authority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
 }
