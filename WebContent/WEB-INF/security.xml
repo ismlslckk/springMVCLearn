@@ -12,14 +12,20 @@
         <b:property name="url" value="jdbc:mysql://localhost:3306/university?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
     </b:bean>
     <b:bean id ="passwordEncoder" class = "org.springframework.security.crypto.password.Md4PasswordEncoder" />
+
     <http auto-config="true">
+        <access-denied-handler error-page="/error/403"/>
         <intercept-url pattern="/" access="permitAll()"/>
+        <intercept-url pattern="/logout" access="permitAll()"/>
         <intercept-url pattern="/login" access="permitAll()"/>
-        <intercept-url pattern="/student/*" access="isAuthenticated()"/>
+        <intercept-url pattern="/student/*" access="hasAnyAuthority('admin','user')"/>
+        <intercept-url pattern="/department/*" access="hasAuthority('admin')"/>
+        <intercept-url pattern="/faculty/*" access="hasAuthority('admin')" />
         <form-login
                 login-page='/login'
                 default-target-url="/home"
                 authentication-failure-url="/login?error=true" />
+        <logout logout-success-url="/" logout-url="/logout"/>
     </http>
     <!--<b:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
     <authentication-manager>
