@@ -12,17 +12,18 @@
 <html>
 <head>
     <title>Öğrenci Ekle</title>
-    <jsp:include page="include/css.jsp" />
+    <jsp:include page="include/css.jsp"/>
 
 </head>
 <body>
 <div class="container">
-    <jsp:include page="include/menu.jsp" />
+    <jsp:include page="include/menu.jsp"/>
     <div style="text-align: center;" class="jumbotron">
         <h1 class="display-4">Öğrenci Kaydet</h1>
     </div>
     <div class="row col-md-6 col-md-offset-3">
-        <form:form action="saveStudent" method="post" modelAttribute="student" name="student">
+        <form:form action="saveStudent?${_csrf.parameterName}=${_csrf.token}" method="post" modelAttribute="student"
+                   name="student" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Öğrenci no</label>
                 <form:input type="number" class="form-control" path="ogrNo"/>
@@ -41,7 +42,8 @@
             <div class="form-group">
                 <label>Fakülte ( <span onclick="location.href='${pageContext.request.contextPath}/faculty/list'"
                                        style="cursor: pointer;" class="glyphicon glyphicon-plus"></span> )</label>
-                <form:select class="form-control" id="faculty" path="department.faculty" onchange="getDepartmentsByFacultyId()">
+                <form:select class="form-control" id="faculty" path="department.faculty"
+                             onchange="getDepartmentsByFacultyId()">
                     <form:option value="seciniz">Seçiniz</form:option>
                     <c:forEach var="item" items="${faculties}">
                         <option value="${item.id}">${item.name}</option>
@@ -58,6 +60,9 @@
                      </c:forEach>--%>
                 </form:select>
                 <form:errors path="department.name" cssClass="error"/>
+            </div>
+            <div class="form-group">
+                <input type="file" class="form-control" name="file">
             </div>
             <button type="submit" class="btn btn-primary">Kaydet</button>
         </form:form>

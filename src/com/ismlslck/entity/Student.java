@@ -31,6 +31,16 @@ public class Student implements Serializable {
     @Valid
     private Department department;
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    private String avatar;
+
 
     public int getId() {
         return id;

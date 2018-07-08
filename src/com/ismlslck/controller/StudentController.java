@@ -1,5 +1,6 @@
 package com.ismlslck.controller;
 
+import com.ismlslck.Utility;
 import com.ismlslck.entity.Department;
 import com.ismlslck.entity.Faculty;
 import com.ismlslck.entity.Student;
@@ -14,10 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -80,8 +79,9 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/saveStudent", method = RequestMethod.POST)
-    public String saveStudent(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult, Model model) {
+    public String saveStudent(@RequestParam("file") MultipartFile file,@ModelAttribute("student") @Valid Student student, BindingResult bindingResult, Model model) {
         //bindingResult.getFieldErrors().add(new FieldError("student","department.faculty","ger"));
+        //file ilk parametre olmadıgında 400 hatası meydana gelmekte.
         if(student.getDepartment().getFaculty()==null){
             bindingResult.rejectValue("department.faculty.name","department.faculty.name","(*)Fakülte ismi boş geçilemez.");
         }
@@ -91,11 +91,27 @@ public class StudentController {
             model.addAttribute("departments", departmentService.getAllDepartment());
             return "save-student";
         } else {
-            if (studentService.saveStudent(student)) {
-                return "redirect:/student/list";
-            } else {
-                model.addAttribute("message", "Bir sorun oluştu,daha sonra tekrar deneyiniz.");
-                return "save-student";
+            if(file.isEmpty()){
+                if (studentService.saveStudent(student)) {
+                    return "redirect:/student/list";
+                } else {
+                    model.addAttribute("message", "Bir sorun oluştu,daha sonra tekrar deneyiniz.");
+                    return "save-student";
+                }
+            }
+            else {
+                if(Utility.uploadFile(file)){
+                    if (studentService.saveStudent(student)) {
+                        return "redirect:/student/list";
+                    } else {
+                        model.addAttribute("message", "Bir sorun oluştu,daha sonra tekrar deneyiniz.");
+                        return "save-student";
+                    }
+                }
+                else {
+                    model.addAttribute("message", "Bir sorun oluştu,daha sonra tekrar deneyiniz(dosya yüklenemedi).");
+                    return "save-student";
+                }
             }
         }
     }

@@ -46,6 +46,19 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <!-- Apache Commons FileUpload -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+
+    <!-- Apache Commons IO -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -243,11 +256,12 @@
       <version>4.2.3.RELEASE</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/fast-md5/fast-md5 -->
+    <!-- randomStringUtils start -->
     <dependency>
-      <groupId>fast-md5</groupId>
-      <artifactId>fast-md5</artifactId>
-      <version>2.5</version>
-    </dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+          <version>3.4</version>
+      </dependency>
+    <!-- randomStringUtils end -->
   </dependencies>
 </project>
