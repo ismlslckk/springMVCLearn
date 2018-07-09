@@ -100,7 +100,9 @@ public class StudentController {
                 }
             }
             else {
-                if(Utility.uploadFile(file)){
+                String uploadFileName=Utility.uploadFile(file);
+                if(uploadFileName!=null){
+                    student.setAvatar(uploadFileName);
                     if (studentService.saveStudent(student)) {
                         return "redirect:/student/list";
                     } else {

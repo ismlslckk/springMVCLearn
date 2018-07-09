@@ -19,6 +19,7 @@
 
 
     <mvc:resources mapping="/resources/**" location="/WEB-INF/view/assets/" />
+    <mvc:resources mapping="/uploads/**" location="/WEB-INF/uploads/" />
 
     <!-- convert işlemleri için service -->
     <mvc:annotation-driven conversion-service="conversionService"/>

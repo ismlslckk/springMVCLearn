@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class Utility {
-    private static final String UPLOAD_AVATAR_PATH  = "/Users/ismlslck/IdeaProjects/springMVCLearn/WebContent/WEB-INF/uploads/avatar/";
-    public static boolean uploadFile(MultipartFile file){
+    private static final String UPLOAD_AVATAR_PATH = "/Users/ismlslck/IdeaProjects/springMVCLearn/WebContent/WEB-INF/uploads/avatar/";
+
+    public static String uploadFile(MultipartFile file) {
+        String randomString = RandomStringUtils.randomAlphanumeric(15);
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -24,17 +26,17 @@ public class Utility {
 
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + RandomStringUtils.randomAlphanumeric(15)+"."+ FilenameUtils.getExtension(file.getOriginalFilename()));
+                        + File.separator + randomString + "." + FilenameUtils.getExtension(file.getOriginalFilename()));
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
-                return true;
+                return randomString+"."+FilenameUtils.getExtension(file.getOriginalFilename());
             } catch (Exception e) {
-                return false;
+                return null;
             }
         } else {
-            return false;
+            return null;
         }
     }
 }

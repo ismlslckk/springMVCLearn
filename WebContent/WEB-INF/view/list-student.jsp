@@ -18,6 +18,7 @@
     <h4 class="display-4">${message}</h4>
     <table class="table">
         <tr>
+            <th>Avatar</th>
             <th>Öğrenci No</th>
             <th>İsim</th>
             <th>Soyisim</th>
@@ -27,6 +28,7 @@
         </tr>
         <c:forEach var="tempStudent" items="${students}">
             <tr>
+                <td><img src="/uploads/avatar/${tempStudent.avatar}" class="img-circle" width="100" height="100"></td>
                 <td>${tempStudent.ogrNo}</td>
                 <td>${tempStudent.name}</td>
                 <td>${tempStudent.surname}</td>
